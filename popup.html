@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Enhance X 設定</title>
+  <link rel="stylesheet" href="popup.css">
+  <script src="settings.js" defer></script>
+  <script src="popup.js" defer></script>
+</head>
+<body>
+  <h1>Enhance X</h1>
+  <p>チェックした項目を非表示にします。</p>
+  <fieldset disabled id="settings">
+    <legend>タイムライン・サイドバー</legend>
+    <label><input type="checkbox" name="trends">「いま」をみつけよう・トレンド</label>
+    <label><input type="checkbox" name="users">おすすめユーザー</label>
+    <label><input type="checkbox" name="news">今日のニュース</label>
+    <label><input type="checkbox" name="forYou">「おすすめ」タブ</label>
+  </fieldset>
+  <fieldset disabled id="navigation">
+    <legend>メニュー・プレミアム案内</legend>
+    <label><input type="checkbox" name="explore">話題を検索</label>
+    <label><input type="checkbox" name="grok">Grok</label>
+    <label><input type="checkbox" name="premium">プレミアム（サブスク案内も）</label>
+    <label><input type="checkbox" name="studio">クリエイタースタジオ</label>
+  </fieldset>
+  <p id="status" role="status" aria-live="polite">設定を読み込み中…</p>
+</body>
+</html>
