@@ -21,13 +21,14 @@ const { document, Node } = parseHTML(`
   </div></div>
   <div data-testid="sidebarColumn"><div id="sidebar-layout">
     <form id="search"><input placeholder="検索"></form>
-    <div id="news-wrapper"><div></div><div><section><h2>今日のニュース</h2></section></div></div>
+    <div id="news-wrapper"><div></div><div><section><h2>本日のニュース</h2></section></div></div>
+    <div id="news-alternate"><section><h2>今日のニュース</h2></section></div>
     <div id="recommendations-wrapper"><aside><h2>おすすめユーザー</h2><a href="/someone">user</a></aside></div>
     <div id="subscribe-wrapper"><aside><span>プレミアムにサブスクライブ</span><p>特典を利用できます</p><a href="/i/premium_sign_up">サブスクライブする</a></aside></div>
     <div id="subscribe-en"><section><h2>Subscribe to Premium</h2><button>Subscribe</button></section></div>
     <nav id="footer"><a href="/tos">利用規約</a></nav>
   </div></div>
-  <article id="post"><h2>今日のニュース</h2><h3>プレミアムにサブスクライブ</h3><a id="post-explore" href="/explore">話題を検索</a></article>
+  <article id="post"><h2>本日のニュース</h2><h3>プレミアムにサブスクライブ</h3><a id="post-explore" href="/explore">話題を検索</a></article>
 `);
 let clicks = 0;
 document.querySelector('#following-wrapper a').click = () => clicks++;
@@ -46,7 +47,7 @@ runInNewContext(readFileSync(require.resolve('../settings.js'), 'utf8') + '\n' +
 });
 await Promise.resolve();
 const hidden = (id) => Boolean(document.getElementById(id).closest('[data-enhance-x-hidden]'));
-for (const id of ['recommended-wrapper', 'news-wrapper', 'recommendations-wrapper', 'subscribe-wrapper', 'subscribe-en', 'explore', 'grok', 'premium', 'studio']) {
+for (const id of ['recommended-wrapper', 'news-wrapper', 'news-alternate', 'recommendations-wrapper', 'subscribe-wrapper', 'subscribe-en', 'explore', 'grok', 'premium', 'studio']) {
   assert.equal(hidden(id), true, `${id} should collapse`);
 }
 for (const id of ['following-wrapper', 'add', 'search', 'footer', 'post', 'home', 'notifications', 'post-explore']) {
@@ -60,7 +61,7 @@ assert.equal(hidden('news-wrapper'), false, 'Restore wrappers reused by X');
 const disabled = Object.fromEntries(['trends', 'users', 'news', 'forYou', 'explore', 'grok', 'premium', 'studio']
   .map((key) => [key, { newValue: false }]));
 settingsChanged(disabled, 'local');
-for (const id of ['recommended-wrapper', 'recommendations-wrapper', 'subscribe-wrapper', 'subscribe-en', 'explore', 'grok', 'premium', 'studio']) {
+for (const id of ['recommended-wrapper', 'news-alternate', 'recommendations-wrapper', 'subscribe-wrapper', 'subscribe-en', 'explore', 'grok', 'premium', 'studio']) {
   assert.equal(hidden(id), false, `${id} should reappear when disabled`);
 }
 settingsChanged({ grok: { newValue: true } }, 'local');

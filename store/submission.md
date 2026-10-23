@@ -2,7 +2,7 @@
 
 ## アップロードするもの
 
-- 拡張機能：`dist/enhance-x-0.2.0.zip`
+- 拡張機能：`dist/enhance-x-0.2.1.zip`
 - ストアアイコン：`icons/icon128.png`
 - スクリーンショット：`store/assets/screenshot-1-timeline.png`、`screenshot-2-settings.png`（各1280×800）
 - 任意の小型プロモーション画像：`store/assets/promo-440x280.png`

@@ -10,7 +10,7 @@
     "いまどうしてる？", "What’s happening", "What's happening",
     ].map((title) => [title, "trends"]),
     ...["おすすめユーザー", "Who to follow"].map((title) => [title, "users"]),
-    ...["今日のニュース", "Today’s News", "Today's News"].map((title) => [title, "news"]),
+    ...["本日のニュース", "今日のニュース", "Today’s News", "Today's News"].map((title) => [title, "news"]),
     ...["プレミアムにサブスクライブ", "プレミアムにサブスクライブする", "Subscribe to Premium"]
       .map((title) => [title, "premium"]),
   ]);
