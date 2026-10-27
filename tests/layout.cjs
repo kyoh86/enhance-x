@@ -18,7 +18,11 @@ const { document, Node } = parseHTML(`
     <div id="recommended-wrapper"><a role="tab" aria-selected="true">おすすめ</a></div>
     <div id="following-wrapper"><a role="tab">フォロー中</a></div>
     <button id="add">+</button>
-  </div></div>
+  </div>
+    <div id="ad" data-testid="cellInnerDiv"><div data-testid="placementTracking"><div data-testid="top-impression-pixel"></div><article data-testid="tweet">広告の投稿</article></div></div>
+    <div id="video" data-testid="cellInnerDiv"><article data-testid="tweet"><div data-testid="placementTracking">通常の動画</div></article></div>
+    <div id="ad-word" data-testid="cellInnerDiv"><article data-testid="tweet"><span>広告</span>という言葉を含む通常投稿</article></div>
+  </div>
   <div data-testid="sidebarColumn"><div id="sidebar-layout">
     <form id="search"><input placeholder="検索"></form>
     <div id="news-wrapper"><div></div><div><section><h2>本日のニュース</h2></section></div></div>
@@ -47,6 +51,16 @@ runInNewContext(readFileSync(require.resolve('../settings.js'), 'utf8') + '\n' +
 });
 await Promise.resolve();
 const hidden = (id) => Boolean(document.getElementById(id).closest('[data-enhance-x-hidden]'));
+assert.equal(hidden('ad'), true, 'Hide the entire ad cell');
+assert.equal(hidden('video'), false, 'Keep ordinary videos');
+assert.equal(hidden('ad-word'), false, 'Do not classify posts by ad words');
+settingsChanged({ ads: { newValue: false } }, 'local');
+assert.equal(hidden('ad'), false, 'Restore ads when disabled');
+settingsChanged({ ads: { newValue: true } }, 'local');
+assert.equal(hidden('ad'), true, 'Hide ads when re-enabled');
+document.querySelector('#ad').innerHTML = '<article data-testid="tweet">再利用された通常投稿</article>';
+refresh();
+assert.equal(hidden('ad'), false, 'Restore reused ad cells');
 for (const id of ['recommended-wrapper', 'news-wrapper', 'news-alternate', 'recommendations-wrapper', 'subscribe-wrapper', 'subscribe-en', 'explore', 'grok', 'premium', 'studio']) {
   assert.equal(hidden(id), true, `${id} should collapse`);
 }

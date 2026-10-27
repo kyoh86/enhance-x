@@ -3,6 +3,7 @@ const ENHANCE_X_DEFAULTS = Object.freeze({
   users: true,
   news: true,
   forYou: true,
+  ads: true,
   explore: true,
   grok: true,
   premium: true,

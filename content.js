@@ -100,6 +100,18 @@
     }
   }
 
+  function cleanAds() {
+    if (!settings.ads) return;
+    for (const tweet of document.querySelectorAll('[data-testid="primaryColumn"] [data-testid="tweet"]')) {
+      const cell = tweet.closest('[data-testid="cellInnerDiv"]');
+      const placement = tweet.closest('[data-testid="placementTracking"]');
+      // Ordinary videos also use placementTracking, but inside the tweet.
+      // Ads wrap the whole tweet and have impression pixels alongside it.
+      if (cell && placement && cell.contains(placement) &&
+          placement.querySelector('[data-testid="top-impression-pixel"]')) hide(cell);
+    }
+  }
+
   function cleanHomeTabs() {
     if (!settings.forYou) return;
     if (!/^\/home\/?$/.test(location.pathname)) return;
@@ -138,6 +150,7 @@
       }
       cleanHomeTabs();
       cleanNavigation();
+      cleanAds();
     });
   }
 
